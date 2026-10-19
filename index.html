@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MPI TKA Cerdas — Literasi & Numerasi</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#16324f;display:flex;align-items:center;justify-content:center;background:linear-gradient(rgba(240,249,255,.82),rgba(240,249,255,.82)),url('bg-ruang-kelas_jpg.jpg') center/cover no-repeat fixed #f0f9ff}
+#stage-16-9{position:relative;width:min(100vw,177.78vh);aspect-ratio:16/9;background:transparent;border:none;box-shadow:none;border-radius:0;overflow:hidden;font-size:calc(15px*var(--font-scale,1))}
+.pg{position:absolute;inset:0;display:none;flex-direction:column;gap:clamp(8px,1.4vh,14px);padding:clamp(10px,1.8vh,18px);overflow:hidden}
+.pg.on{display:flex}
+.bar{display:flex;align-items:center;gap:10px}
+.tt{background:linear-gradient(90deg,#2563eb,#7c3aed);color:#fff;font-weight:800;font-size:clamp(16px,2.2vh,22px);padding:6px 20px;border-radius:30px;box-shadow:0 4px 10px #2563eb44}
+.sp{flex:1}
+.cb{min-width:clamp(40px,5.2vh,48px);height:clamp(40px,5.2vh,48px);border-radius:30px;border:none;background:#fff;box-shadow:0 3px 8px #0003;font-size:clamp(18px,2.3vh,23px);font-weight:800;cursor:pointer;padding:0 12px;color:#1e3a8a}
+.cb:hover{transform:scale(1.07)}
+.card{background:rgba(255,255,255,.93);border-radius:20px;box-shadow:0 6px 16px #1e3a8a2e;padding:clamp(10px,1.8vh,18px)}
+.bd{background:#fff;border:2px solid #f59e0b;color:#b45309;font-weight:800;font-size:clamp(12px,1.6vh,15px);padding:4px 14px;border-radius:20px}
+p,li,.tx{font-size:clamp(13px,1.65vh,16px);font-weight:600;line-height:1.48}
+h3{font-size:clamp(15px,2vh,20px);font-weight:800;color:#1e3a8a}
+/* cover */
+#p1{justify-content:space-between;align-items:center;text-align:center}
+.cap{display:flex;align-items:center;gap:14px;background:#fff;border-radius:50px;padding:6px 22px 6px 10px;box-shadow:0 4px 12px #0003}
+.logo{height:clamp(50px,6.8vh,68px)}
+.cap small{font-weight:600;color:#475569;font-size:clamp(12px,1.6vh,15px)}
+.cap b{font-size:clamp(15px,2vh,20px)}
+h1{font-size:clamp(2.8rem,6.8vw,5.2rem);line-height:1;color:#ff7a00;font-weight:900;text-shadow:4px 4px 0 #fff,-4px -4px 0 #fff,4px -4px 0 #fff,-4px 4px 0 #fff,0 7px 0 #1d4ed8,0 10px 12px #0004}
+h2{font-size:clamp(1.4rem,3.2vw,2.6rem);font-weight:900;color:#1e3a8a;text-shadow:2px 2px 0 #fff,-2px -2px 0 #fff,2px -2px 0 #fff,-2px 2px 0 #fff;margin-top:8px}
+.play{display:inline-flex;align-items:center;gap:16px;cursor:pointer;background:none;border:none;margin-top:clamp(8px,2vh,22px)}
+.play i{width:clamp(60px,8.5vh,80px);height:clamp(60px,8.5vh,80px);border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;font-style:normal;font-size:clamp(26px,3.6vh,36px);display:flex;align-items:center;justify-content:center;animation:glow 1.6s infinite}
+.play span{font-size:clamp(24px,3.8vh,36px);font-weight:900;color:#15803d;text-shadow:2px 2px 0 #fff,-2px -2px 0 #fff,2px -2px 0 #fff,-2px 2px 0 #fff}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 #22c55e99}50%{box-shadow:0 0 0 18px #22c55e00,0 0 28px 8px #22c55eaa}}
+.ft{background:rgba(255,255,255,.92);border-radius:16px;padding:8px 22px;font-weight:700;font-size:clamp(13px,1.8vh,17px)}
+/* menu */
+.grid{display:grid;gap:clamp(10px,1.8vh,18px);flex:1;min-height:0}
+#mn{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr)}
+.mc{display:flex;align-items:center;gap:16px;cursor:pointer;border:none;text-align:left;font-family:inherit;border-bottom:6px solid #00000022;transition:.15s}
+.mc:hover{transform:translateY(-4px)}
+.ib{flex:none;width:clamp(66px,9vh,88px);height:clamp(66px,9vh,88px);border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:clamp(34px,4.8vh,46px);box-shadow:0 5px 10px #0003}
+/* tp */
+#tpl{display:flex;flex-direction:column;justify-content:space-around;flex:1;min-height:0}
+.tp{display:flex;align-items:center;gap:14px}
+.tp .ib{width:clamp(44px,6vh,60px);height:clamp(44px,6vh,60px);border-radius:16px;font-size:clamp(22px,3vh,30px)}
+/* materi */
+#mt{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr)}
+.mk{display:flex;flex-direction:column;gap:4px;min-height:0;overflow:hidden}
+.mk .vis{flex:0 0 44%;border-radius:14px;display:flex;align-items:center;justify-content:center;min-height:0;background:#eff6ff}
+.mk svg{height:100%;width:100%}
+/* sim */
+#sim{display:flex;gap:clamp(10px,1.8vh,18px);flex:1;min-height:0}
+#sv{flex:1.7;display:flex;align-items:center;min-width:0}
+#sv svg{width:100%;height:clamp(260px,38vh,420px)}
+#ctl{flex:1;display:flex;flex-direction:column;gap:clamp(6px,1.2vh,12px);justify-content:center}
+.btn{font-family:inherit;font-weight:800;font-size:clamp(13.5px,1.8vh,17px);padding:10px 22px;border-radius:30px;border:3px solid #2563eb;background:#fff;color:#1e3a8a;cursor:pointer}
+.btn.on{background:#2563eb;color:#fff}
+input[type=range]{width:100%;accent-color:#7c3aed;height:26px}
+#tel{background:#1e293b;color:#a7f3d0;border-radius:14px;padding:10px 14px;font-family:Consolas,monospace;font-weight:700;font-size:clamp(13px,1.65vh,16px);line-height:1.5}
+.dash{stroke-dasharray:12 8;animation:ds 1.4s linear infinite}
+@keyframes ds{to{stroke-dashoffset:-40}}
+.pul{transform-box:fill-box;transform-origin:center;animation:pl 1.2s infinite}
+@keyframes pl{50%{transform:scale(1.3)}}
+/* eval */
+#evc{flex:1;min-height:0;display:flex;flex-direction:column}
+#ev{display:flex;flex-direction:column;gap:clamp(8px,1.5vh,14px);flex:1;min-height:0}
+.eh{display:flex;justify-content:space-between;align-items:center}
+.q{font-size:clamp(14px,2vh,19px);font-weight:700;line-height:1.5}
+.op{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ob{font-family:inherit;font-weight:800;font-size:clamp(13.5px,1.8vh,17px);padding:10px 22px;border-radius:16px;border:3px solid #93c5fd;background:#fff;cursor:pointer;text-align:left;color:#1e3a8a}
+.ob:hover{background:#eff6ff}
+.ob.ok{background:#bbf7d0;border-color:#16a34a}.ob.no{background:#fecaca;border-color:#dc2626}
+#fb{font-weight:800;font-size:clamp(13.5px,1.8vh,17px);display:flex;gap:14px;align-items:center;min-height:clamp(40px,5.2vh,48px)}
+#mc{display:grid;grid-template-columns:1fr 20% 1fr;position:relative;flex:1;min-height:0}
+.col{display:flex;flex-direction:column;justify-content:space-around;gap:8px}
+.mi{background:#fff;border:3px solid #93c5fd;border-radius:14px;padding:8px 14px;font-weight:800;font-size:clamp(13px,1.65vh,16px);cursor:pointer;line-height:1.35}
+.mi.sel{border-color:#f59e0b;background:#fef3c7}.mi.ok{border-color:#16a34a;background:#dcfce7}.mi.no{border-color:#dc2626;background:#fee2e2}
+#ml{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.dl{stroke-dasharray:1000;stroke-dashoffset:1000;animation:dr .7s forwards}
+@keyframes dr{to{stroke-dashoffset:0}}
+.tf{display:flex;gap:20px}.tf .ob{flex:1;text-align:center;font-size:clamp(16px,2.4vh,22px)}
+.rc{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;flex:1;text-align:center}
+.tr{font-size:clamp(44px,6vh,60px);filter:drop-shadow(0 6px 6px #0004);animation:bn 1.2s infinite}
+@keyframes bn{50%{transform:translateY(-8px) scale(1.1)}}
+.sc{font-size:clamp(40px,8vh,80px);font-weight:900;color:#ea580c;line-height:1}
+/* profil */
+#pf{flex:1;display:flex;align-items:center;gap:clamp(20px,4vw,50px);padding:0 clamp(20px,4vw,60px)}
+.ph{flex:none;width:clamp(130px,18vh,175px);height:clamp(130px,18vh,175px);border-radius:50%;padding:5px;background:linear-gradient(135deg,#f59e0b,#ec4899,#2563eb);filter:drop-shadow(0 8px 8px #0005)}
+.ph img{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:50% 22%;background:#fff;display:block}
+.nm{font-size:clamp(20px,3vh,24px);font-weight:900;color:#1e3a8a}
+blockquote{margin-top:12px;border-left:6px solid #f59e0b;padding:8px 14px;background:#fffbeb;border-radius:0 12px 12px 0;font-style:italic;font-weight:700;font-size:clamp(13.5px,1.8vh,17px)}
+#wm{position:fixed;inset:0;background:#0006;display:none;align-items:center;justify-content:center;z-index:9}
+#wm.on{display:flex}
+#wb{background:#fff;border-radius:24px;padding:26px 30px;max-width:min(640px,90vw);text-align:center;box-shadow:0 10px 30px #0006;display:flex;flex-direction:column;gap:14px;align-items:center}
+#wb .ib{background:linear-gradient(135deg,#fde047,#f59e0b)}
+#wt{font-size:clamp(15px,2.2vh,20px);font-weight:700;line-height:1.5}
+</style></head><body>
+<div id="stage-16-9">
+
+<!-- 1 SAMPUL -->
+<section class="pg on" id="p1">
+ <div class="cap"><img class="logo" src="logo-sekolah_png.png" alt="Logo" onerror="this.style.display='none'"><div><b data-k="sekolah"></b><br><small>Dinas Pendidikan Kabupaten Lamongan</small></div><span class="bd">Kurikulum Merdeka</span><span class="bd" data-k="fase"></span></div>
+ <div>
+  <div class="tx" style="font-weight:800;color:#1e3a8a;font-size:clamp(14px,2.2vh,20px)">📚 Media Pembelajaran Interaktif</div>
+  <h1>TKA CERDAS</h1>
+  <h2>Literasi &amp; Numerasi</h2>
+  <div class="tx" style="font-weight:800;margin-top:6px;font-size:clamp(14px,2.2vh,20px)" data-k="kelas"></div>
+  <button class="play" onclick="go(2)"><i>▶</i><span>MULAI</span></button>
+ </div>
+ <div class="ft">Dikembangkan oleh <b data-k="guru"></b> · <span data-k="sekolah"></span> · ✨ “Cerdas Berkarakter — Belajar Bernalar, Bangga Berprestasi” ✨</div>
+</section>
+
+<!-- 2 MENU -->
+<section class="pg" id="p2"><div class="bar" data-t="🧭 Menu Utama"></div><div class="grid" id="mn"></div></section>
+
+<!-- 3 TP -->
+<section class="pg" id="p3"><div class="bar" data-t="🎯 Tujuan Pembelajaran"></div><div class="card" style="flex:1;min-height:0;display:flex;flex-direction:column"><h3 style="margin-bottom:6px" data-k="materi"></h3><div id="tpl"></div></div></section>
+
+<!-- 4 MATERI -->
+<section class="pg" id="p4"><div class="bar" data-t="📖 Materi Pembelajaran"></div><div class="grid" id="mt"></div></section>
+
+<!-- 5 SIMULASI -->
+<section class="pg" id="p5"><div class="bar" data-t="🕹️ Lab Virtual: Pecahan &amp; Geometri"></div>
+ <div id="sim"><div class="card" id="sv"></div><div class="card" id="ctl"></div></div></section>
+
+<!-- 6 EVALUASI -->
+<section class="pg" id="p6"><div class="bar" data-t="📝 Evaluasi Multi-Format"></div><div class="card" id="evc"><div id="ev"></div></div></section>
+
+<!-- 7 PROFIL -->
+<section class="pg" id="p7"><div class="bar" data-t="👨‍🏫 Profil Guru"></div>
+ <div class="card" id="pf"><div class="ph"><img src="foto-guru_png.png" alt="Foto guru" onerror="this.style.display='none'"></div>
+ <div><div class="nm" data-k="guru"></div><p style="margin-top:4px">Guru Pengembang Media Pembelajaran</p><p>🏫 <span data-k="sekolah"></span></p><p>📚 <span data-k="materi"></span> · <span data-k="kelas"></span></p>
+ <blockquote>“Belajar bukan sekadar menghafal, tetapi memahami, bernalar, dan berani mencoba.”</blockquote></div></div></section>
+</div>
+
+<div id="wm" onclick="if(event.target==this)this.classList.remove('on')"><div id="wb"><div class="ib">💡</div><h3>Wawasan &amp; Fakta Menarik</h3><div id="wt"></div><div><button class="btn" onclick="fact()">🔄 Fakta Lain</button> <button class="btn on" onclick="$('#wm').classList.remove('on')">Tutup</button></div></div></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+/* ===== DATA IDENTITAS (Bagian 1) ===== */
+const CFG={sekolah:'SD Negeri 4 Jetis',guru:'Maaratus Solikhah, S.Pd., M.Pd.',mapel:'Matematika & Bahasa Indonesia',materi:'TKA CERDAS — Literasi dan Numerasi',fase:'Fase C',kelas:'Kelas VI SD · Fase C'};
+$$('[data-k]').forEach(e=>e.textContent=CFG[e.dataset.k]);
+/* ===== AUDIO SINTETIS ===== */
+let snd=true,ac,fs=1;
+function tone(f,t0=0,d=.15,ty='sine',f2){if(!snd)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain(),s=ac.currentTime+t0;o.type=ty;o.frequency.setValueAtTime(f,s);if(f2)o.frequency.exponentialRampToValueAtTime(f2,s+d);g.gain.setValueAtTime(.15,s);g.gain.exponentialRampToValueAtTime(.001,s+d);o.connect(g);g.connect(ac.destination);o.start(s);o.stop(s+d)}catch(e){}}
+const sClick=()=>tone(450,0,.12,'sine',880),sOk=()=>[523,659,784].forEach((f,i)=>tone(f,i*.12,.22,'triangle')),sBad=()=>tone(170,0,.35,'sawtooth',110);
+/* ===== NAVIGASI ===== */
+function go(n){sClick();$$('.pg').forEach(p=>p.classList.remove('on'));$('#p'+n).classList.add('on');if(n==6){rst()}if(n==5){mode(M)}}
+$$('.bar').forEach(b=>{const h=b.closest('#p2');b.innerHTML=`<button class="cb" onclick="go(1)">🏠 BERANDA</button>${h?'':'<button class="cb" onclick="go(2)">☰ MENU</button>'}<span class="tt">${b.dataset.t}</span><span class="sp"></span><button class="cb" onclick="fz(-.1)">A−</button><button class="cb" onclick="fz(.1)">A+</button><button class="cb sb" onclick="tg()">🔊</button>`});
+function fz(d){fs=Math.min(1.4,Math.max(.8,fs+d));$('#stage-16-9').style.setProperty('--font-scale',fs);sClick()}
+function tg(){snd=!snd;$$('.sb').forEach(b=>b.textContent=snd?'🔊':'🔇');sClick()}
+/* ===== MENU ===== */
+const MN=[['🎯','Tujuan Pembelajaran','Capaian & indikator kompetensi','#fca5a5,#ef4444',3],['📖','Materi Pembelajaran','Konsep kunci dengan diagram visual','#93c5fd,#2563eb',4],['🕹️','Simulasi Interaktif','Lab virtual pecahan & geometri','#86efac,#16a34a',5],['📝','Evaluasi Multi-Format','3 babak, skor total 100 poin','#fde047,#f59e0b',6],['👨‍🏫','Profil Guru','Fasilitator pengembang media','#d8b4fe,#9333ea',7],['💡','Wawasan & Fakta','Fakta edukatif menarik','#f9a8d4,#ec4899',0]];
+$('#mn').innerHTML=MN.map(m=>`<button class="card mc" onclick="${m[4]?`go(${m[4]})`:'fact()'}"><div class="ib" style="background:linear-gradient(135deg,${m[3]})">${m[0]}</div><div><h3>${m[1]}</h3><p>${m[2]}</p></div></button>`).join('');
+/* ===== WAWASAN ===== */
+const FK=['Menandai kata kunci saat membaca membantu otak menemukan ide pokok lebih cepat.','Tanda persen (%) berasal dari bahasa Latin “per centum”, artinya per seratus.','Konsep angka nol berkembang pesat berkat para matematikawan India.','Sarang lebah berbentuk segi enam karena hemat bahan dan ruang.','Soal cerita lebih mudah jika kamu menggambar situasinya lebih dulu.'];let fi=-1;
+function fact(){sOk();fi=(fi+1)%FK.length;$('#wt').textContent=FK[fi];$('#wm').classList.add('on')}
+/* ===== TP ===== */
+const TP=[['🔍','Menemukan informasi tersurat dan tersirat dalam teks.'],['💭','Menentukan ide pokok dan menyimpulkan isi bacaan.'],['📝','Memahami makna kata dan mengevaluasi informasi berdasarkan teks.'],['➗','Menggunakan bilangan, pecahan, dan desimal untuk menyelesaikan masalah kontekstual.'],['📐','Menyelesaikan soal pengukuran, geometri, dan data secara logis, sistematis, dan tepat.'],['⏱️','Mengerjakan simulasi TKA dengan disiplin waktu dan mengevaluasi hasil latihan.']];
+$('#tpl').innerHTML=TP.map((t,i)=>`<div class="tp"><div class="ib" style="background:linear-gradient(135deg,#bfdbfe,#60a5fa)">${t[0]}</div><p style="font-size:clamp(13.5px,1.9vh,17px)"><b>TP ${i+1}.</b> ${t[1]}</p></div>`).join('');
+/* ===== MATERI ===== */
+const sv=s=>`<svg viewBox="0 0 120 60" stroke-linecap="round" stroke-linejoin="round">${s}</svg>`;
+const MT=[['Informasi Tersurat & Tersirat','Tersurat: tertulis jelas di teks. Tersirat: harus disimpulkan dari petunjuk antarkalimat.',sv('<rect x="15" y="6" width="60" height="48" rx="6" fill="#fff" stroke="#2563eb" stroke-width="4"/><path d="M25 20h40M25 30h30M25 40h38" stroke="#93c5fd" stroke-width="4"/><circle cx="88" cy="26" r="14" fill="none" stroke="#f97316" stroke-width="5"/><path d="M98 36l14 14" stroke="#f97316" stroke-width="5"/>')],
+['Ide Pokok & Simpulan','Ide pokok adalah gagasan utama paragraf. Simpulan merangkum seluruh isi bacaan.',sv('<circle cx="60" cy="26" r="18" fill="#fde047" stroke="#f59e0b" stroke-width="4"/><path d="M52 48h16M54 55h12M60 0v0M20 26h10M90 26h10M32 8l7 7M88 8l-7 7" stroke="#f59e0b" stroke-width="4"/>')],
+['Makna Kata & Evaluasi Teks','Tebak makna kata dari konteks kalimat. Nilai teks: apakah fakta didukung bukti bacaan?',sv('<rect x="8" y="12" width="30" height="34" rx="6" fill="#fecaca" stroke="#ef4444" stroke-width="4"/><rect x="45" y="12" width="30" height="34" rx="6" fill="#bbf7d0" stroke="#16a34a" stroke-width="4"/><rect x="82" y="12" width="30" height="34" rx="6" fill="#bfdbfe" stroke="#2563eb" stroke-width="4"/><path d="M16 30h14M53 30h14M90 30h14" stroke="#fff" stroke-width="5"/>')],
+['Pecahan & Desimal','Pecahan a/b = a dari b bagian sama besar. 3/4 = 0,75 = 75%. Samakan penyebut sebelum menjumlah.',sv('<circle cx="60" cy="30" r="25" fill="#bfdbfe" stroke="#2563eb" stroke-width="4"/><path d="M60 30V5A25 25 0 1 1 35 30Z" fill="#f97316" stroke="#c2410c" stroke-width="4"/>')],
+['Pengukuran & Geometri','Keliling = jumlah semua sisi. Luas persegi panjang = p × l. Perhatikan satuan cm, m, cm².',sv('<rect x="20" y="12" width="80" height="36" fill="#dbeafe" stroke="#2563eb" stroke-width="5"/><path d="M20 30h80M60 12v36" stroke="#93c5fd" stroke-width="3"/><path d="M20 56h80" stroke="#f97316" stroke-width="4"/>')],
+['Data & Penalaran','Baca tabel/diagram: rata-rata, modus (paling sering), median (tengah). Selesaikan langkah demi langkah.',sv('<path d="M10 54h100" stroke="#475569" stroke-width="4"/><rect x="18" y="30" width="18" height="24" fill="#60a5fa"/><rect x="46" y="10" width="18" height="44" fill="#f97316"/><rect x="74" y="22" width="18" height="32" fill="#22c55e"/>')]];
+$('#mt').innerHTML=MT.map((m,i)=>`<div class="card mk"><div class="vis">${m[2]}</div><h3>${['🔍','💭','📝','➗','📐','📊'][i]} ${m[0]}</h3><p>${m[1]}</p></div>`).join('');
+/* ===== SIMULASI ===== */
+let M='p';
+const gcd=(a,b)=>b?gcd(b,a%b):a;
+function lab(x,y,t,c='#2563eb'){const w=t.length*8.4+18;return `<g><rect x="${x-w/2}" y="${y-13}" width="${w}" height="26" rx="6" fill="#fff" stroke="${c}" stroke-width="1.5"/><text x="${x}" y="${y+5}" text-anchor="middle" font-size="14" font-weight="800" fill="${c}">${t}</text></g>`}
+function mode(m){M=m;sClick();const p=m=='p';
+ $('#ctl').innerHTML=`<div style="display:flex;gap:8px"><button class="btn ${p?'on':''}" onclick="mode('p')">➗ Pecahan</button><button class="btn ${p?'':'on'}" onclick="mode('g')">📐 Persegi Panjang</button></div>
+ <div class="tx">${p?'Pembilang':'Panjang (p)'}: <b id="v1"></b></div><input type="range" id="s1" min="${p?0:2}" max="12" value="${p?3:6}" oninput="upd()">
+ <div class="tx">${p?'Penyebut':'Lebar (l)'}: <b id="v2"></b></div><input type="range" id="s2" min="${p?2:1}" max="${p?12:8}" value="${p?4:4}" oninput="upd()">
+ <div id="tel"></div><p>${p?'Geser slider untuk melihat pecahan sebagai lingkaran, batang, dan garis bilangan.':'Geser slider untuk melihat keliling dan luas berubah pada petak satuan.'}</p>`;upd()}
+function upd(){const a=+$('#s1').value,b=+$('#s2').value;$('#v1').textContent=a;$('#v2').textContent=b;let s='',t='';
+ if(M=='p'){const n=b,k=Math.min(a,n),cx=170,cy=200,r=140,P=(i)=>[cx+r*Math.cos(-Math.PI/2+2*Math.PI*i/n),cy+r*Math.sin(-Math.PI/2+2*Math.PI*i/n)];
+  for(let i=0;i<n;i++){const[x0,y0]=P(i),[x1,y1]=P(i+1);s+=`<path d="M${cx} ${cy}L${x0} ${y0}A${r} ${r} 0 0 1 ${x1} ${y1}Z" fill="${i<k?'#f97316':'#dbeafe'}" stroke="#1e3a8a" stroke-width="4"/>`}
+  s+=lab(170,376,`${k}/${n} bagian`,'#c2410c')+lab(480,46,'Diagram batang');
+  for(let i=0;i<n;i++)s+=`<rect x="${360+240*i/n}" y="66" width="${240/n}" height="46" fill="${i<k?'#f97316':'#dbeafe'}" stroke="#1e3a8a" stroke-width="3"/>`;
+  s+=`<line x1="360" y1="240" x2="600" y2="240" stroke="#1e3a8a" stroke-width="5"/><line class="dash" x1="360" y1="240" x2="${360+240*k/n}" y2="240" stroke="#f97316" stroke-width="6"/>`;
+  for(let i=0;i<=n;i++)s+=`<line x1="${360+240*i/n}" y1="230" x2="${360+240*i/n}" y2="250" stroke="#1e3a8a" stroke-width="3"/>`;
+  const mx=360+240*k/n;s+=`<circle class="pul" cx="${mx}" cy="240" r="14" fill="#f97316" stroke="#fff" stroke-width="4"/>`+lab(Math.min(570,Math.max(390,mx)),196,'Garis bilangan')+lab(360,282,'0')+lab(600,282,'1')+lab(480,336,`${(k/n).toFixed(2).replace('.',',')} = ${Math.round(100*k/n)}%`,'#16a34a');
+  const g=gcd(k,n)||1;t=`Pecahan  = ${k}/${n}\nDesimal  = ${(k/n).toFixed(2).replace('.',',')}\nPersen   = ${Math.round(100*k/n)}%\nSederhana= ${k/g}/${n/g}`}
+ else{const u=Math.floor(Math.min(420/a,250/b)),w=u*a,h=u*b,x0=40,y0=62;
+  s+=`<rect x="${x0}" y="${y0}" width="${w}" height="${h}" fill="#dbeafe" stroke="#2563eb" stroke-width="5"/>`;
+  for(let i=1;i<a;i++)s+=`<line x1="${x0+u*i}" y1="${y0}" x2="${x0+u*i}" y2="${y0+h}" stroke="#93c5fd" stroke-width="2"/>`;
+  for(let j=1;j<b;j++)s+=`<line x1="${x0}" y1="${y0+u*j}" x2="${x0+w}" y2="${y0+u*j}" stroke="#93c5fd" stroke-width="2"/>`;
+  s+=`<rect class="dash" x="${x0}" y="${y0}" width="${w}" height="${h}" fill="none" stroke="#f97316" stroke-width="5"/>`+lab(x0+w/2,y0-26,`p = ${a} cm`)+lab(x0+w+62,y0+h/2,`l = ${b} cm`)+lab(170,368,`Keliling = ${2*(a+b)} cm`,'#c2410c')+lab(450,368,`Luas = ${a*b} cm²`,'#16a34a');
+  t=`Keliling = 2×(${a}+${b}) = ${2*(a+b)} cm\nLuas     = ${a}×${b} = ${a*b} cm²`}
+ $('#sv').innerHTML=`<svg viewBox="0 0 640 400">${s}</svg>`;$('#tel').innerHTML=t.replace(/\n/g,'<br>').replace(/ /g,'&nbsp;')}
+/* ===== EVALUASI ===== */
+const MC=[{q:'Bacalah: “Banyak siswa kelas VI menyisihkan uang jajan untuk menabung. Dengan menabung, mereka dapat membeli buku dan perlengkapan sekolah.” Ide pokok paragraf tersebut adalah ...',o:['Siswa kelas VI menabung untuk membeli keperluan sekolah','Siswa kelas VI suka jajan','Buku sekolah sangat mahal','Perlengkapan sekolah banyak macamnya'],a:0},
+{q:'Hasil dari 3/4 + 1/2 adalah ...',o:['4/6','5/4','3/8','4/4'],a:1},
+{q:'Sebuah persegi panjang berukuran panjang 12 cm dan lebar 5 cm. Luasnya adalah ...',o:['17 cm²','34 cm²','60 cm²','120 cm²'],a:2}];
+const TF=[['Informasi tersirat ditulis langsung dan jelas dalam teks.',0],['Bilangan desimal 0,75 sama nilainya dengan pecahan 3/4.',1],['Keliling persegi dengan panjang sisi 6 cm adalah 36 cm.',0]];
+const TT=['Informasi tersurat','Ide pokok','Keliling','Modus'],DD=['Informasi yang tertulis jelas dalam teks','Gagasan utama sebuah paragraf','Jumlah panjang seluruh sisi bangun datar','Data yang paling sering muncul'],R=[2,0,3,1];
+let S,X;
+function rst(){S={s:0,i:0,sc:[0,0,0],lock:0};X={sel:null,n:0};ev()}
+const hd=t=>`<div class="eh"><span class="tt">${t}</span><span class="bd" style="font-size:clamp(14px,1.9vh,18px)">⭐ Skor: ${S.sc[0]+S.sc[1]+S.sc[2]}/100</span></div>`;
+const nxb=l=>`<button class="btn on" onclick="nxt()">${l||'Lanjut ▶'}</button>`;
+function ev(){const E=$('#ev');
+ if(S.s==0){const m=MC[S.i];E.innerHTML=hd(`Babak A · Pilihan Ganda ${S.i+1}/3 (30 poin)`)+`<p class="q">${m.q}</p><div class="op">${m.o.map((t,k)=>`<button class="ob" onclick="pick(${k},this)">${'ABCD'[k]}. ${t}</button>`).join('')}</div><div id="fb"></div>`}
+ else if(S.s==1){E.innerHTML=hd('Babak B · Menjodohkan Garis (40 poin)')+`<p class="q">Klik istilah di kiri, lalu klik pasangan artinya di kanan.</p><div id="mc"><div class="col">${TT.map((t,i)=>`<div class="mi" id="L${i}" onclick="pl(${i})">${t}</div>`).join('')}</div><div></div><div class="col">${R.map((r,j)=>`<div class="mi" id="R${j}" onclick="pr(${j})">${DD[r]}</div>`).join('')}</div><svg id="ml"></svg></div><div id="fb"></div>`}
+ else if(S.s==2){const t=TF[S.i];E.innerHTML=hd(`Babak C · Benar / Salah ${S.i+1}/3 (30 poin)`)+`<p class="q" style="margin-top:6px">${t[0]}</p><div class="tf"><button class="ob" onclick="tf(1,this)">✓ BENAR</button><button class="ob" onclick="tf(0,this)">✗ SALAH</button></div><div id="fb"></div>`}
+ else{const T=S.sc[0]+S.sc[1]+S.sc[2];E.innerHTML=`<div class="rc"><div class="tr">${T>=70?'🏆':'🎖️'}</div><h3>Rekapitulasi Skor</h3><div class="sc">${T}</div><p>dari 100 poin</p><p>Babak A: <b>${S.sc[0]}</b>/30 · Babak B: <b>${S.sc[1]}</b>/40 · Babak C: <b>${S.sc[2]}</b>/30</p><p style="font-size:clamp(14px,2vh,19px)">${T>=80?'Luar biasa! Kamu siap menghadapi TKA! 🌟':T>=60?'Bagus! Latih lagi agar makin mantap. 💪':'Jangan menyerah, pelajari materinya lagi ya! 📖'}</p><button class="btn on" onclick="sClick();rst()">🔄 ULANGI</button></div>`;if(T>=60)sOk()}}
+function fb(ok,msg){sBad&&(ok?sOk():sBad());$('#fb').innerHTML=`<span style="color:${ok?'#15803d':'#b91c1c'}">${ok?'✅ Benar! +10':'❌ Belum tepat. '+msg}</span>`}
+function pick(k,b){if(S.lock)return;S.lock=1;const m=MC[S.i],ok=k==m.a;b.classList.add(ok?'ok':'no');$$('.ob')[m.a].classList.add('ok');if(ok)S.sc[0]+=10;fb(ok,'Jawaban: '+'ABCD'[m.a]);$('#fb').insertAdjacentHTML('beforeend',nxb())}
+function tf(v,b){if(S.lock)return;S.lock=1;const t=TF[S.i],ok=v==t[1];b.classList.add(ok?'ok':'no');if(ok)S.sc[2]+=10;fb(ok,'Pernyataan ini '+(t[1]?'BENAR.':'SALAH.'));$('#fb').insertAdjacentHTML('beforeend',nxb(S.i==2?'Lihat Skor ▶':''))}
+function pl(i){if(X['l'+i])return;sClick();X.sel=i;$$('.mi').forEach(e=>e.classList.remove('sel'));$('#L'+i).classList.add('sel')}
+function pr(j){if(X.sel==null||X['r'+j])return;const i=X.sel,ok=R[j]==i;X['l'+i]=X['r'+j]=1;X.sel=null;X.n++;
+ const c=$('#mc').getBoundingClientRect(),a=$('#L'+i).getBoundingClientRect(),b=$('#R'+j).getBoundingClientRect();
+ $('#ml').insertAdjacentHTML('beforeend',`<line class="dl" x1="${a.right-c.left}" y1="${a.top+a.height/2-c.top}" x2="${b.left-c.left}" y2="${b.top+b.height/2-c.top}" stroke="${ok?'#16a34a':'#dc2626'}" stroke-width="5" stroke-linecap="round"/>`);
+ $('#L'+i).classList.remove('sel');$('#L'+i).classList.add(ok?'ok':'no');$('#R'+j).classList.add(ok?'ok':'no');
+ if(ok)S.sc[1]+=10;ok?sOk():sBad();
+ if(X.n==4){$('#fb').innerHTML=`<span>Pasangan benar: ${S.sc[1]/10}/4</span>`+nxb()}}
+function nxt(){sClick();S.lock=0;if(S.s==0){S.i++;if(S.i>2){S.s=1;S.i=0}}else if(S.s==1){S.s=2;S.i=0}else{S.i++;if(S.i>2)S.s=3}ev()}
+M='p';rst();
+</script></body></html>
